@@ -169,6 +169,8 @@ def build_videos():
         pairs = "".join(f"<div><dt>{E(role)}</dt><dd>{E(name)}</dd></div>\n" for role, name in video["credits"] if role)
         notes = "".join(f"<p>{E(text)}</p>\n" for role, text in video["credits"] if not role)
         notes = f'<div class="credit-notes">\n{notes}</div>' if notes else ""
+        credits = f'<dl class="credits">\n{pairs}</dl>' if pairs else ""
+        credit_block = f'<div class="video-credits">\n{credits}\n{notes}\n</div>' if credits or notes else ""
         more = "\n".join(tile(VIDEOS[(index + k) % count], root) for k in range(1, 5))
         private_hash = f"h={video['hash']}&" if video.get("hash") else ""
         embed = f"https://player.vimeo.com/video/{video['id']}?{private_hash}title=0&byline=0&portrait=0"
@@ -177,12 +179,7 @@ def build_videos():
 </div>
 <section class="video-info">
 <h1 class="giant video-title">{E(video['title'])}</h1>
-<div class="video-credits">
-<dl class="credits">
-<div><dt>Year</dt><dd>{E(video['year'])}</dd></div>
-{pairs}</dl>
-{notes}
-</div>
+{credit_block}
 </section>
 <section class="more">
 <div class="more-head">
