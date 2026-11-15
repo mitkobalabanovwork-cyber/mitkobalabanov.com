@@ -135,8 +135,7 @@ def main():
                 if item and item["id"] not in known:
                     added.append(item)
                     known.add(item["id"])
-            status["videos_in_account"] = len(account)
-            status["by_privacy"] = dict(sorted(by_privacy.items()))
+            status["public_videos_in_account"] = by_privacy.get("anybody", 0)
             status["on_site_and_in_account"] = len({video["id"] for video in videos} & in_account)
             status["on_site_but_not_in_account"] = sorted({video["id"] for video in videos} - in_account)
             status["last_added"] = [f"{item['id']} {item['title']}" for item in added]
