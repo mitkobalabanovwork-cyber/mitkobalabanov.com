@@ -3,6 +3,8 @@ name: Build and deploy
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "17 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -17,38 +19,54 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      deploy: ${{ steps.decide.outputs.deploy }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Make missing preview loops
+      - name: Add new public videos from Vimeo
+        id: sync
         continue-on-error: true
         env:
           VIMEO_TOKEN: ${{ secrets.VIMEO_TOKEN }}
-        run: |
-          command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
-          python3 make_loops.py
+        run: python3 sync_vimeo.py
 
-      - name: Save new loops to the repository
+      - name: Save changes to the repository
         continue-on-error: true
         run: |
-          git add -A assets/loops videos.json
-          [ -f loops-status.json ] && git add loops-status.json
+          git add videos.json sync-status.json
           if ! git diff --cached --quiet; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "Update preview loops"
+            git commit -m "Sync videos from Vimeo"
             git push
           fi
 
+      # The hourly check only publishes when Vimeo had something new.
+      - name: Decide whether to publish
+        id: decide
+        env:
+          EVENT: ${{ github.event_name }}
+          CHANGED: ${{ steps.sync.outputs.changed }}
+        run: |
+          if [ "$EVENT" != "schedule" ] || [ "$CHANGED" = "true" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build site
+        if: steps.decide.outputs.deploy == 'true'
         run: python3 build.py
 
       - uses: actions/upload-pages-artifact@v4
+        if: steps.decide.outputs.deploy == 'true'
         with:
           path: dist
 
   deploy:
     needs: build
+    if: needs.build.outputs.deploy == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

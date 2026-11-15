@@ -170,7 +170,8 @@ def build_videos():
         notes = "".join(f"<p>{E(text)}</p>\n" for role, text in video["credits"] if not role)
         notes = f'<div class="credit-notes">\n{notes}</div>' if notes else ""
         more = "\n".join(tile(VIDEOS[(index + k) % count], root) for k in range(1, 5))
-        embed = f"https://player.vimeo.com/video/{video['id']}?h={video['hash']}&title=0&byline=0&portrait=0"
+        private_hash = f"h={video['hash']}&" if video.get("hash") else ""
+        embed = f"https://player.vimeo.com/video/{video['id']}?{private_hash}title=0&byline=0&portrait=0"
         body = f"""<div class="player" style="--ar: {video['width']} / {video['height']}">
 <iframe src="{E(embed)}" title="{E(video['title'])}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 </div>
