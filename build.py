@@ -4,6 +4,7 @@
 Standard library only:  python3 build.py
 """
 import datetime
+import hashlib
 import html
 import json
 import shutil
@@ -16,6 +17,11 @@ VIDEOS = json.loads((ROOT / "videos.json").read_text(encoding="utf-8"))
 YEAR = datetime.date.today().year
 HAS_PORTRAIT = (ROOT / "assets" / "portrait.jpg").exists()
 FONTS = "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800;900&display=swap"
+
+
+def version(name):
+    """Short fingerprint of an asset, so browsers fetch the new file as soon as it changes."""
+    return hashlib.sha256((ROOT / "assets" / name).read_bytes()).hexdigest()[:10]
 
 
 def E(value):
@@ -70,7 +76,7 @@ def layout(*, depth, path, title, description, body, active="", image="", head="
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
-<link rel="stylesheet" href="{root}assets/style.css">
+<link rel="stylesheet" href="{root}assets/style.css?v={version('style.css')}">
 {head}
 </head>
 <body>
@@ -96,7 +102,7 @@ def layout(*, depth, path, title, description, body, active="", image="", head="
 {social}
 </div>
 </footer>
-<script src="{root}assets/site.js" defer></script>
+<script src="{root}assets/site.js?v={version('site.js')}" defer></script>
 </body>
 </html>
 """
