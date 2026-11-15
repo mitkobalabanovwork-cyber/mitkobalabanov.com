@@ -1,0 +1,47 @@
+{
+  "name": "Mitko Balabanov",
+  "role": "Film Editor",
+  "tagline": "Film Editor — Sofia",
+  "url": "https://mitkobalabanov.com",
+  "description": "Bulgarian film editor based in Sofia. Selected work in short film, commercials, music video and brand films.",
+  "email": "mitko.balabanov@yahoo.com",
+  "phone": "+359 888 419 977",
+  "city": "Sofia, Bulgaria",
+  "location": "Sofia, Bulgaria · working internationally",
+  "contactLabel": "Get in touch — commercial, music video, branded content & narrative editing",
+  "contactNote": "For commercial, music video, branded content & narrative editing. Replies within 48 hours.",
+  "social": {
+    "Instagram": "https://www.instagram.com/mitkobalabanov/",
+    "Facebook": "https://www.facebook.com/mitko.balabanov.9",
+    "IMDb": "https://www.imdb.com/name/nm11951512"
+  },
+  "bio": [
+    "Graduated from National Academy of theater & arts, Bulgaria.",
+    "Bachelor in film & TV editing.",
+    "Member of the Bulgarian Filmmaking Association."
+  ],
+  "filmography": {
+    "Editor": [
+      ["My Man", "TV series", ["E05 | E07 | E09 | E11"]],
+      ["Posterity", "2025 · Short film", ["Sofia Film Fest — official selection"]],
+      ["Raspery Sorbet", "2025 · Short film", ["Completed"]],
+      ["Breathe", "2021 · Short film", ["Sofia Film Fest — official selection", "In The Palace Film Fest — official selection"]],
+      ["From Here to Here", "2021 · Short film", ["Robinson Film Awards — winner", "Sofia Film Fest — official selection", "In The Palace Film Fest — official selection", "Golden Rose Film Fest — official selection", "Bulgarian Film Awards — nominee"]],
+      ["Hide&Seek", "2024 · Short film", []],
+      ["Stop the Car", "2025 · Short film", ["In post-production"]]
+    ],
+    "Post-production": [
+      ["Waves", "TV series", ["Post-production supervisor"]],
+      ["Valley of Love", "TV movie", ["Assistant editor trainee"]],
+      ["Everything for My Son", "TV series", ["First assistant editor"]],
+      ["For Better or Worse", "TV movie", ["Assistant editor trainee"]],
+      ["Sunnybeach S02", "TV series", ["First assistant editor"]],
+      ["The War of the Letters", "TV series", ["First assistant editor"]],
+      ["Brothers S04", "TV series", ["First assistant editor"]],
+      ["All Inclusive S05", "TV series", ["First assistant editor"]],
+      ["The Cage S01 | S02", "TV series", ["First assistant editor"]],
+      ["Brothers S02 | S03 | S05", "TV series", ["Post-production assistant | trailer editor"]],
+      ["All Inclusive S03 | S04", "TV series", ["Post-production assistant | trailer editor"]]
+    ]
+  }
+}
