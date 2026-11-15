@@ -1,8 +1,8 @@
 {
   "_token": {
     "status": 200,
-    "scope": "public",
-    "account": null
+    "scope": "private create edit interact promo_codes stats video_files public",
+    "account": "plus"
   },
   "1193925064": "no video files in the API answer (fields present: play)",
   "1192223016": "no video files in the API answer (fields present: play)",
