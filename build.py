@@ -65,7 +65,7 @@ def layout(*, depth, path, title, description, body, active="", image="", head="
 <meta property="og:url" content="{E(absolute(path))}">
 <meta property="og:image" content="{E(image)}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#ff5a1f">
+<meta name="theme-color" content="#ee6200">
 <link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -270,7 +270,7 @@ def build_extras():
 <title>Page not found — {E(SITE['name'])}</title>
 <meta name="robots" content="noindex">
 <style>
-body{{margin:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:24px;padding:24px;background:#ff5a1f;color:#0b0b0a;font-family:'Helvetica Neue',Arial,sans-serif}}
+body{{margin:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:24px;padding:24px;background:#ee6200;color:#0b0b0a;font-family:'Helvetica Neue',Arial,sans-serif}}
 h1{{margin:0;font-size:clamp(64px,15vw,232px);font-weight:900;line-height:.84;letter-spacing:-.045em;text-transform:uppercase}}
 a{{color:inherit;font-size:20px;font-weight:800;text-underline-offset:4px}}
 </style>
