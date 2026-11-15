@@ -6,21 +6,43 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Make missing preview loops
+        continue-on-error: true
+        env:
+          VIMEO_TOKEN: ${{ secrets.VIMEO_TOKEN }}
+        run: |
+          command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+          python3 make_loops.py
+
+      - name: Save new loops to the repository
+        continue-on-error: true
+        run: |
+          git add -A assets/loops videos.json
+          [ -f loops-status.json ] && git add loops-status.json
+          if ! git diff --cached --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Update preview loops"
+            git push
+          fi
+
       - name: Build site
         run: python3 build.py
+
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
